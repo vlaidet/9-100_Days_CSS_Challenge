@@ -1,0 +1,261 @@
+// delete the following line if no text is used
+// edit the line if you wanna use other fonts
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,600,500,400,300);
+
+// * VARIABLES
+$nb__crater: 11;
+
+$bg: #1a2238;
+$color: #394568;
+
+$moon__bg: #f6edbd;
+$moon__height: 67px;
+$moon__width: 67px;
+$crater__bg: #ece1a8;
+
+$hill__last__plane__bg: #26314F;
+$hill__first__plane__bg: #303C5D;
+
+// * FUNCTIONS
+@function random_range($min, $max) {
+  $rand: random();
+  $random_range: $min + floor($rand * (($max - $min) + 1));
+  @return $random_range;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// use only the available space inside the 400x400 frame
+.frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  margin-top: -200px;
+  margin-left: -200px;
+  border-radius: 7px;
+  box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main__container {
+  width: 100%;
+  height: 100%;
+  background: $bg;
+  color: $color;
+  border-radius: 7px;
+}
+
+.moon {
+  position: absolute;
+  top: 45px;
+  left: 55px;
+  height: $moon__height;
+  width: $moon__width;
+  background-color: $moon__bg;
+  box-shadow: 0 0 10px 0 $moon__bg;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 0;
+  animation: to-top 2s ease-in-out 0.2s;
+
+  .crater {
+    position: absolute;
+    background: $crater__bg;
+    border-radius: 50%;
+  }
+
+  @for $i from 1 through $nb__crater {
+    .crater-#{$i} {
+      $crater__size: random_range(5, 11);
+      height: $crater__size + px;
+      width: $crater__size + px;
+    }
+  }
+
+  .crater-2 {
+    top: 12px;
+    left: 0;
+  }
+
+  .crater-3 {
+    top: 56px;
+    left: 10px;
+  }
+
+  .crater-4 {
+    top: 37px;
+    left: 49px;
+  }
+
+  .crater-5 {
+    top: 24px;
+    left: 61px;
+  }
+
+  .crater-6 {
+    top: 55px;
+    left: 33px;
+  }
+
+  .crater-7 {
+    top: 17px;
+    left: 46px;
+  }
+
+  .crater-8 {
+    top: 28px;
+    left: 27px;
+  }
+
+  .crater-9 {
+    top: 39px;
+    left: 17px;
+  }
+
+  .crater-10 {
+    top: 25px;
+    left: 15px;
+  }
+
+  .crater-11 {
+    top: 37px;
+    left: 37px;
+  }
+}
+
+.hills {
+
+  .hill {
+    position: absolute;
+    border-radius: 50%;
+    width: 337px;
+    height: 281px;
+  }
+
+  .hill-1,
+  .hill-2 {
+    background-color: $hill__last__plane__bg;
+    z-index: 1;
+  }
+
+  .hill-3,
+  .hill-4 {
+    background-color: $hill__first__plane__bg;
+    z-index: 2;
+  }
+
+  .hill-5 {
+    background-color: $hill__first__plane__bg;
+    z-index: 3;
+  }
+
+  .hill-1 {
+    top: 201px;
+    left: -57px;
+  }
+
+  .hill-2 {
+    top: 197px;
+    left: 177px;
+  }
+
+  .hill-3 {
+    top: 248px;
+    left: -137px;
+  }
+
+  .hill-4 {
+    top: 221px;
+    left: 63px;
+  }
+
+  .hill-5 {
+    top: 248px;
+    left: 292px;
+  }
+}
+
+.weather__information__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 20px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  background-color: #fff;
+  font-weight: 300;
+  box-sizing: border-box;
+  z-index: 4;
+
+  .first__column {
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+
+    .temperature {
+      font-size: 45px;
+      font-weight: 300;
+    }
+
+    .other__weather__information {
+      font-size: 15px;
+    }
+  }
+
+  .second__column {
+    display: flex;
+    column-gap: 10px;
+    font-size: 15px;
+
+    div:first-child {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    div:last-child {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-weight: 400;
+    }
+  }
+}
+
+// Animations
+@-webkit-keyframes to-top {
+  from {
+    top: 105%;
+    left: 30px;
+  }
+
+  to {
+    top: 45px;
+    left: 55px;
+  }
+}
+
+@keyframes to-top {
+  from {
+    top: 105%;
+    left: 30px;
+  }
+
+  to {
+    top: 45px;
+    left: 55px;
+  }
+}
