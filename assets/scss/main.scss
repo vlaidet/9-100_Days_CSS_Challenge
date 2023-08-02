@@ -4,17 +4,33 @@
 
 // * VARIABLES
 $nb__crater: 11;
+$nb__raindrop: 10;
 
 $bg: #1a2238;
 $color: #394568;
 
+$height: 400px;
+$width: 400px; 
+
 $moon__bg: #f6edbd;
+$top_offset__moon: 11%;
+$left__offset__moon: 12%;
 $moon__height: 67px;
 $moon__width: 67px;
 $crater__bg: #ece1a8;
 
 $hill__last__plane__bg: #26314F;
 $hill__first__plane__bg: #303C5D;
+
+$rain__bg: #7FC1F9;
+$raindrop__small__height: 4px;
+$raindrop__small__width: 4px;
+$raindrop__medium__height: 6px;
+$raindrop__medium__width: 6px;
+$raindrop__big__height: 8px;
+$raindrop__big__width: 8px;
+
+$weather__information__container__height: 90px;
 
 // * FUNCTIONS
 @function random_range($min, $max) {
@@ -33,11 +49,13 @@ $hill__first__plane__bg: #303C5D;
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
-  height: 400px;
+  height: $height;
+  width: $width;
   margin-top: -200px;
   margin-left: -200px;
   border-radius: 7px;
+  background: $bg;
+  color: $color;
   box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
   font-family: "Open Sans", Helvetica, sans-serif;
@@ -45,18 +63,11 @@ $hill__first__plane__bg: #303C5D;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.main__container {
-  width: 100%;
-  height: 100%;
-  background: $bg;
-  color: $color;
-  border-radius: 7px;
-}
 
 .moon {
   position: absolute;
-  top: 45px;
-  left: 55px;
+  top: $top_offset__moon;
+  left: $left__offset__moon;
   height: $moon__height;
   width: $moon__width;
   background-color: $moon__bg;
@@ -136,8 +147,8 @@ $hill__first__plane__bg: #303C5D;
   .hill {
     position: absolute;
     border-radius: 50%;
-    width: 337px;
-    height: 281px;
+    height: calc(#{$height} / 1.42);
+    width: calc(#{$width} / 1.18);
   }
 
   .hill-1,
@@ -158,28 +169,132 @@ $hill__first__plane__bg: #303C5D;
   }
 
   .hill-1 {
-    top: 201px;
-    left: -57px;
+    top: calc(#{$height} / 2);
+    left: calc(#{$width} / 7.01 * -1);
   }
 
   .hill-2 {
-    top: 197px;
-    left: 177px;
+    top: calc(#{$height} / 2.03);
+    left: calc(#{$width} / 2.25);
   }
 
   .hill-3 {
-    top: 248px;
-    left: -137px;
+    top: calc(#{$height} / 1.61);
+    left: calc(#{$width} / 2.91 * -1);
   }
 
   .hill-4 {
-    top: 221px;
-    left: 63px;
+    top: calc(#{$height} / 1.80);
+    left: calc(#{$width} / 6.34);
   }
 
   .hill-5 {
-    top: 248px;
-    left: 292px;
+    top: calc(#{$height} / 1.61);
+    left: calc(#{$width} / 1.36);
+  }
+}
+
+.raindrops {
+  .raindrop {
+    position: absolute;
+    background-color: $rain__bg;
+    border-radius: 50%;
+    z-index: 4;
+
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      background-color: $rain__bg;
+    }
+  }
+
+  .raindrop.small {
+    top: calc(#{$height} - (#{$weather__information__container__height} + #{$raindrop__small__height}));
+    height: $raindrop__small__height;
+    width: $raindrop__small__width;
+    opacity: .3;
+
+    &::before {
+      top: calc(#{$raindrop__small__height} / 4 * -1);
+      left: calc(#{$raindrop__small__width} / 8);
+      height: calc(#{$raindrop__small__height} - (#{$raindrop__small__height} / 4));
+      width: calc(#{$raindrop__small__width} - (#{$raindrop__small__width} / 4));
+      border-radius: calc(#{$raindrop__small__width} / 2.66);
+    }
+
+    &::after {
+      top: calc(#{$raindrop__small__height} / 1.6 * -1);
+      left: calc(#{$raindrop__small__width} / 4);
+      height: calc(#{$raindrop__small__height} + (#{$raindrop__small__height} / 4));
+      width: calc(#{$raindrop__small__width} / 2);
+      border-radius: 50%;
+    }
+  }
+
+  .raindrop.medium {
+    top: calc(#{$height} - (#{$weather__information__container__height} + #{$raindrop__medium__height}));
+    height: $raindrop__medium__height;
+    width: $raindrop__medium__width;
+    opacity: .6;
+
+    &::before {
+      top: calc(#{$raindrop__medium__height} / 4 * -1);
+      left: calc(#{$raindrop__medium__width} / 8);
+      height: calc(#{$raindrop__medium__height} - (#{$raindrop__medium__height} / 4));
+      width: calc(#{$raindrop__medium__width} - (#{$raindrop__medium__width} / 4));
+      border-radius: calc(#{$raindrop__medium__width} / 2.66);
+    }
+
+    &::after {
+      top: calc(#{$raindrop__medium__height} / 1.6 * -1);
+      left: calc(#{$raindrop__medium__width} / 4);
+      height: calc(#{$raindrop__medium__height} + (#{$raindrop__medium__height} / 4));
+      width: calc(#{$raindrop__medium__width} / 2);
+      border-radius: 50%;
+    }
+  }
+
+  .raindrop.big {
+    top: calc(#{$height} - (#{$weather__information__container__height} + #{$raindrop__big__height}));
+    height: $raindrop__big__height;
+    width: $raindrop__big__width;
+
+    &::before {
+      top: calc(#{$raindrop__big__height} / 4 * -1);
+      left: calc(#{$raindrop__big__width} / 8);
+      height: calc(#{$raindrop__big__height} - (#{$raindrop__big__height} / 4));
+      width: calc(#{$raindrop__big__width} - (#{$raindrop__big__width} / 4));
+      border-radius: calc(#{$raindrop__big__width} / 2.66);
+    }
+
+    &::after {
+      top: calc(#{$raindrop__big__height} / 1.6 * -1);
+      left: calc(#{$raindrop__big__width} / 4);
+      height: calc(#{$raindrop__big__height} + (#{$raindrop__big__height} / 4));
+      width: calc(#{$raindrop__big__width} / 2);
+      border-radius: 50%;
+    }
+  }
+}
+
+@for $i from 1 through $nb__raindrop {
+  .raindrop-#{$i} {
+    left: calc((#{$width} / #{$nb__raindrop}) * #{$i});
+    animation-fill-mode: both;
+  }
+
+  .small.raindrop-#{$i} {
+    animation: drop (1.9 + random(2) / 10) + s linear (random(50) / 25) + s infinite;
+  }
+
+  .medium.raindrop-#{$i} {
+    animation: drop (1.3 + random(2) / 10) + s linear (random(50) / 25) + s infinite;
+  }
+
+  .big.raindrop-#{$i} {
+    animation: drop (0.7 + random(2) / 10) + s linear (random(50) / 25) + s infinite;
+		animation-fill-mode: both;
+		transform-origin: 50% 100%;
   }
 }
 
@@ -191,8 +306,9 @@ $hill__first__plane__bg: #303C5D;
   bottom: 0;
   left: 0;
   right: 0;
+  height: $weather__information__container__height;
   width: 100%;
-  padding: 20px;
+  padding: 0 20px;
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
   background-color: #fff;
@@ -239,23 +355,48 @@ $hill__first__plane__bg: #303C5D;
 @-webkit-keyframes to-top {
   from {
     top: 105%;
-    left: 30px;
+    left: calc(#{$left__offset__moon} / 2);
   }
 
   to {
-    top: 45px;
-    left: 55px;
+    top: $top_offset__moon;
+    left: $left__offset__moon;
   }
 }
 
 @keyframes to-top {
   from {
     top: 105%;
-    left: 30px;
+    left: calc(#{$left__offset__moon} / 2);
   }
 
   to {
-    top: 45px;
-    left: 55px;
+    top: $top_offset__moon;
+    left: $left__offset__moon;
   }
+
+}
+
+@-webkit-keyframes drop {
+	0% {
+		transform: translate3d(40px,-320px,0) scaleX(1) scaleY(1) rotate(17deg);
+	}
+	85% {
+		transform: translate3d(0,0,0) scaleX(1) scaleY(1) rotate(17deg);
+	}
+	100% {
+		transform: translate3d(0,0,0) scaleX(3) scaleY(0) rotate(0deg);
+	}
+}
+
+@keyframes drop {
+	0% {
+		transform: translate3d(40px,-320px,0) scaleX(1) scaleY(1) rotate(17deg);
+	}
+	85% {
+		transform: translate3d(0,0,0) scaleX(1) scaleY(1) rotate(17deg);
+	}
+	100% {
+		transform: translate3d(0,0,0) scaleX(3) scaleY(0) rotate(0deg);
+	}
 }
